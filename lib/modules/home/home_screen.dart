@@ -8,6 +8,8 @@ import 'package:plj_absensi_mobile/constants/duration.dart';
 import 'package:plj_absensi_mobile/modules/akun/controllers/profile_controller.dart';
 import 'package:plj_absensi_mobile/modules/home/controllers/home_controller.dart';
 import 'package:plj_absensi_mobile/modules/home/widgets/custom_bottom_nav.dart';
+import 'package:plj_absensi_mobile/modules/presensi/controllers/attendance_controller.dart';
+import 'package:plj_absensi_mobile/modules/presensi/controllers/location_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -24,6 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     Get.put(HomeController());
     Get.put(ProfileController());
+    Get.put(LocationController());
+    Get.put(AttendanceController());
   }
 
   Future<bool> _onWillPop() {

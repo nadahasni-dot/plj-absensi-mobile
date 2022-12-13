@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plj_absensi_mobile/constants/colors.dart';
+import 'package:plj_absensi_mobile/data/network/api_endpoints.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class SyaratKetentuanScreen extends StatefulWidget {
@@ -26,7 +27,8 @@ class _SyaratKetentuanScreenState extends State<SyaratKetentuanScreen> {
         ),
       ),
       body: WebView(
-        initialUrl: Uri.https('google.com').toString(),
+        initialUrl: Uri.http(ApiEndpoints.baseUrl, ApiEndpoints.termsCondition)
+            .toString(),
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );

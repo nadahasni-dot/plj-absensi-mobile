@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:plj_absensi_mobile/constants/colors.dart';
+import 'package:plj_absensi_mobile/data/network/api_endpoints.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class KebijakanPrivasiScreen extends StatefulWidget {
@@ -26,7 +27,8 @@ class _KebijakanPrivasiScreenState extends State<KebijakanPrivasiScreen> {
         ),
       ),
       body: WebView(
-        initialUrl: Uri.https('google.com').toString(),
+        initialUrl: Uri.http(ApiEndpoints.baseUrl, ApiEndpoints.privacyPolicy)
+            .toString(),
         javascriptMode: JavascriptMode.unrestricted,
       ),
     );

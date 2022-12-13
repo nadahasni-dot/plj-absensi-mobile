@@ -4,6 +4,8 @@ import 'package:plj_absensi_mobile/constants/duration.dart';
 import 'package:plj_absensi_mobile/modules/akun/akun_saya_screen.dart';
 import 'package:plj_absensi_mobile/modules/home/home_screen.dart';
 import 'package:plj_absensi_mobile/modules/kontak/kontak_screen.dart';
+import 'package:plj_absensi_mobile/modules/presensi/presensi_screen.dart';
+import 'package:plj_absensi_mobile/modules/presensi/presensi_success_screen.dart';
 import 'package:plj_absensi_mobile/modules/signin/signin_screen.dart';
 import 'package:plj_absensi_mobile/modules/splash/splash_screen.dart';
 import 'package:plj_absensi_mobile/modules/syarat_ketentuan/kebijakan_privasi_screen.dart';
@@ -33,20 +35,20 @@ class AppPages {
       transitionDuration: defaultDuration,
     ),
     // * Presensi & Kehadiran
-    // GetPage(
-    //   name: RouteNames.presensiScreen,
-    //   page: () => const PresensiKehadiranScreen(),
-    //   curve: Curves.easeInOut,
-    //   transition: Transition.rightToLeft,
-    //   transitionDuration: defaultDuration,
-    // ),
-    // GetPage(
-    //   name: RouteNames.presensiSuccessScreen,
-    //   page: () => const PresensiSuccessScreen(),
-    //   curve: Curves.easeInOut,
-    //   transition: Transition.rightToLeft,
-    //   transitionDuration: defaultDuration,
-    // ),
+    GetPage(
+      name: RouteNames.presensiScreen,
+      page: () => const PresensiScreen(),
+      curve: Curves.easeInOut,
+      transition: Transition.rightToLeft,
+      transitionDuration: defaultDuration,
+    ),
+    GetPage(
+      name: RouteNames.presensiSuccessScreen,
+      page: () => const PresensiSuccessScreen(),
+      curve: Curves.easeInOut,
+      transition: Transition.rightToLeft,
+      transitionDuration: defaultDuration,
+    ),
     // GetPage(
     //   name: RouteNames.detailPresensiScreen,
     //   page: () => const DetailPresensiScreen(),

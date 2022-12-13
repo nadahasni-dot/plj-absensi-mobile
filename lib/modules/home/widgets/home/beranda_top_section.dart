@@ -8,7 +8,9 @@ import 'package:plj_absensi_mobile/constants/colors.dart';
 import 'package:plj_absensi_mobile/data/network/response_call.dart';
 import 'package:plj_absensi_mobile/modules/akun/controllers/profile_controller.dart';
 import 'package:plj_absensi_mobile/modules/home/controllers/home_controller.dart';
+import 'package:plj_absensi_mobile/modules/home/widgets/home/time_card.dart';
 import 'package:plj_absensi_mobile/modules/home/widgets/home/time_card_loading.dart';
+import 'package:plj_absensi_mobile/modules/presensi/controllers/attendance_controller.dart';
 import 'package:plj_absensi_mobile/routes/route_names.dart';
 import 'package:plj_absensi_mobile/widgets/shimmer_wrapper.dart';
 
@@ -23,7 +25,7 @@ class _BerandaTopSectionState extends State<BerandaTopSection> {
   final now = DateTime.now();
   final _homeController = Get.find<HomeController>();
   final _profileController = Get.find<ProfileController>();
-  // final _attendanceController = Get.find<AttendanceController>();
+  final _attendanceController = Get.find<AttendanceController>();
 
   StreamSubscription? listenProfileCall;
 
@@ -34,18 +36,12 @@ class _BerandaTopSectionState extends State<BerandaTopSection> {
     if (_profileController.profileCall.value.status == Status.iddle) {
       _profileController.getProfile();
     }
-
-    // if (_attendanceController.workTimeCall.value.status == Status.iddle) {
-    //   _attendanceController.getWorkTime();
-    // }
-
-    // if (_attendanceController.attendanceCall.value.status == Status.iddle) {
-    //   final latestPeriod = getLatestPeriod()[0];
-    //   _attendanceController.getAttendances(
-    //     start: latestPeriod.startDate,
-    //     end: latestPeriod.endDate,
-    //   );
-    // }
+    if (_attendanceController.scheduleCall.value.status == Status.iddle) {
+      _attendanceController.getSchedule();
+    }
+    if (_attendanceController.attendanceCall.value.status == Status.iddle) {
+      _attendanceController.getAttendances();
+    }
   }
 
   @override
@@ -151,7 +147,7 @@ class _BerandaTopSectionState extends State<BerandaTopSection> {
                       }
 
                       return GestureDetector(
-                        onTap: () => _homeController.switchPage(4),
+                        onTap: () => _homeController.switchPage(2),
                         child: Builder(builder: (context) {
                           if (_profileController.user?.avatar != null) {
                             return CachedNetworkImage(
@@ -177,70 +173,68 @@ class _BerandaTopSectionState extends State<BerandaTopSection> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 16, right: 16),
-              child: Builder(builder: (context) {
-                return const TimeCardLoading();
-                // if (_attendanceController.workTimeCall.value.status ==
-                //     Status.iddle) {
-                //   return const TimeCardLoading();
-                // }
+              child: Obx(() {
+                if (_attendanceController.scheduleCall.value.status ==
+                    Status.iddle) {
+                  return const TimeCardLoading();
+                }
 
-                // if (_attendanceController.workTimeCall.value.status ==
-                //     Status.loading) {
-                //   return const TimeCardLoading();
-                // }
+                if (_attendanceController.scheduleCall.value.status ==
+                    Status.loading) {
+                  return const TimeCardLoading();
+                }
 
-                // if (_attendanceController.workTimeCall.value.status ==
-                //     Status.error) {
-                //   return TimeCard(
-                //     onTap: _openPresensiKehadiran,
-                //     inTime: null,
-                //     outTime: null,
-                //   );
-                // }
+                if (_attendanceController.scheduleCall.value.status ==
+                    Status.error) {
+                  return TimeCard(
+                    onTap: _openPresensiKehadiran,
+                    inTime: null,
+                    outTime: null,
+                  );
+                }
 
-                // if (_attendanceController.attendanceCall.value.status ==
-                //     Status.iddle) {
-                //   return const TimeCardLoading();
-                // }
+                if (_attendanceController.attendanceCall.value.status ==
+                    Status.iddle) {
+                  return const TimeCardLoading();
+                }
 
-                // if (_attendanceController.attendanceCall.value.status ==
-                //     Status.loading) {
-                //   return const TimeCardLoading();
-                // }
+                if (_attendanceController.attendanceCall.value.status ==
+                    Status.loading) {
+                  return const TimeCardLoading();
+                }
 
-                // if (_attendanceController.attendanceCall.value.status ==
-                //     Status.error) {
-                //   return TimeCard(
-                //     onTap: _openPresensiKehadiran,
-                //     inTime: null,
-                //     outTime: null,
-                //   );
-                // }
+                if (_attendanceController.attendanceCall.value.status ==
+                    Status.error) {
+                  return TimeCard(
+                    onTap: _openPresensiKehadiran,
+                    inTime: null,
+                    outTime: null,
+                  );
+                }
 
-                // if (_attendanceController.attendances.isEmpty) {
-                //   return TimeCard(
-                //     onTap: _openPresensiKehadiran,
-                //     inTime: null,
-                //     outTime: null,
-                //   );
-                // }
+                if (_attendanceController.attendances.isEmpty) {
+                  return TimeCard(
+                    onTap: _openPresensiKehadiran,
+                    inTime: null,
+                    outTime: null,
+                  );
+                }
 
-                // if (_attendanceController.getTodayAttendance() == null) {
-                //   return TimeCard(
-                //     onTap: _openPresensiKehadiran,
-                //     inTime: null,
-                //     outTime: null,
-                //   );
-                // }
+                if (_attendanceController.getTodayAttendance() == null) {
+                  return TimeCard(
+                    onTap: _openPresensiKehadiran,
+                    inTime: null,
+                    outTime: null,
+                  );
+                }
 
-                // final todayAttendance =
-                //     _attendanceController.getTodayAttendance()!;
-                // return TimeCard(
-                //   status: todayAttendance.status,
-                //   onTap: _openPresensiKehadiran,
-                //   inTime: todayAttendance.loginTime,
-                //   outTime: todayAttendance.logoutTime,
-                // );
+                final todayAttendance =
+                    _attendanceController.getTodayAttendance()!;
+                return TimeCard(
+                  onTap: _openPresensiKehadiran,
+                  inTime: todayAttendance.clockIn,
+                  outTime: todayAttendance.clockOut,
+                );
               }),
             ),
             const SizedBox(height: 16),
