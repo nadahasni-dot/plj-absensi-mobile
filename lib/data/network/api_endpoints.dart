@@ -1,5 +1,5 @@
 class ApiEndpoints {
-  static const baseUrl = '10.133.100.146';
+  static const baseUrl = '192.168.0.2';
   static const prefix = '/api';
   static const apiVersion = '';
 
